@@ -5,7 +5,7 @@ const addToCart = async (req, res) => {
     const { userId, itemId, size } = req.body;
     const userData = await userModel.findById(userId);
     let cartData = await userData.cartData;
-    console.log("add cart to cart", cartData);
+    
     if (cartData[itemId]) {
       if (cartData[itemId][size]) {
         cartData[itemId][size] += 1;
@@ -30,10 +30,10 @@ const updateCart = async (req, res) => {
     const userData = await userModel.findById(userId);
     let cartData = await userData.cartData;
     cartData[itemId][size] = quantity;
-    console.log("update1", cartData);
+   
 
     await userModel.findByIdAndUpdate(userId, { cartData });
-    console.log("update2",cartData);
+  
     res.json({ success: true, message: "Cart update" });
   } catch (error) {
     res.json({ success: false, message: error.message });
@@ -45,7 +45,7 @@ try {
   const {userId} = req.body;
   const userData = await userModel.findById(userId);
   let cartData = await userData.cartData;
-  console.log("lay danh sach",cartData)
+ 
   res.json({ success: true, cartData})
 } catch (error) {
   res.json({ success: true, cartData });
